@@ -96,7 +96,6 @@ hs_err_pid*
 .idea/libraries/Maven__org_yaml_snakeyaml_1_25.xml
 
 
-README.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !*/src/main/*
