@@ -26,10 +26,11 @@ public class Controller {
     }
 
     @PostMapping("/postactivity")
-    public Activity postactivity(@RequestBody Activity activity){
+    public String postactivity(@RequestBody Activity activity){
 
+        activity.setTimeSpent(activity.getStartTime(), activity.getEndTime());
         service.saveActivity(activity);
-        return activity; // TODO: Retornar o tempo gasto
+        return activity.getTimeSpent();
     }
 
 }
