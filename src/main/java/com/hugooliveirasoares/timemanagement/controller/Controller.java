@@ -3,12 +3,10 @@ package com.hugooliveirasoares.timemanagement.controller;
 import com.hugooliveirasoares.timemanagement.domain.Activity;
 import com.hugooliveirasoares.timemanagement.domain.ActivityList;
 import com.hugooliveirasoares.timemanagement.service.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 @RestController
 public class Controller {
@@ -24,6 +22,12 @@ public class Controller {
     public ActivityList getActivity(){
         return service.getActivityList();
     }
+
+    @GetMapping("/getbytask")
+    public List<Activity> getbyTask(@RequestParam String id){
+        return service.getActivityList().getbyTask(id);
+    }
+
 
     @PostMapping("/postactivity")
     public String postactivity(@RequestBody Activity activity){

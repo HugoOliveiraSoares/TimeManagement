@@ -11,6 +11,16 @@ public class ActivityList {
         return listActivity;
     }
 
+    public List<Activity> getbyTask(String id){
+        List<Activity> x = new ArrayList<>();
+        for (int i = 0; i < listActivity.size(); i++) {
+            if (listActivity.get(i).getTask().equals(id)) {
+                x.add(listActivity.get(i));
+            }
+        }
+        return x;
+    }
+
     public void setListActivity(List<Activity> listActivity) {
         this.listActivity = listActivity;
     }
