@@ -8,11 +8,13 @@ import java.util.GregorianCalendar;
 
 public class Activity {
 
+    private int id;
     private String information;
     private String startTime;
     private String endTime;
     private String duration;
     private String task;
+    private Date date;
 
     public String getStartTime() {
         return startTime;
@@ -29,12 +31,12 @@ public class Activity {
     public void setTimeSpent(String startTime, String endTime) {
         this.startTime = startTime;
         this.endTime = endTime;
-        duration = String.valueOf(calculateTimeSpent(startTime, endTime));
+        setDuration( String.valueOf(calculateTimeSpent(startTime, endTime)));
     }
 
     private long calculateTimeSpent(String startTime, String endTime){
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm");
         Calendar hour1 = new GregorianCalendar();
         Calendar hour2 = new GregorianCalendar();
         Date init = null;
@@ -42,8 +44,8 @@ public class Activity {
         long duration;
 
         try {
-            init = dateFormat.parse(startTime);
-            end = dateFormat.parse(endTime);
+            init = hourFormat.parse(startTime);
+            end = hourFormat.parse(endTime);
 
         }catch (ParseException e){
             e.printStackTrace();
@@ -70,5 +72,43 @@ public class Activity {
 
     public void setTask(String task) {
         this.task = task;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public String getDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return dateFormat.format(date);
+    }
+
+    public void setDate(String date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            this.date = dateFormat.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
