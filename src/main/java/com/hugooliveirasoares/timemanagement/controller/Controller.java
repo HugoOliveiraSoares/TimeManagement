@@ -19,8 +19,9 @@ public class Controller {
     }
 
     @GetMapping("/getactivity")
-    public ActivityList getActivity(){
-        return service.getActivityList();
+    public List<Activity> getActivity(){
+        return service.getActivities();
+//        return service.getActivityList();
     }
 
     @GetMapping("/getbytask")
