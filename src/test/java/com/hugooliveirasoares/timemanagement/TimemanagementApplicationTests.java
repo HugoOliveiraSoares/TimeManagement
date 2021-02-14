@@ -1,33 +1,17 @@
 package com.hugooliveirasoares.timemanagement;
 
 import com.hugooliveirasoares.timemanagement.controller.Controller;
+import com.hugooliveirasoares.timemanagement.dao.ActivityDAO;
 import com.hugooliveirasoares.timemanagement.domain.Activity;
-import com.hugooliveirasoares.timemanagement.domain.ActivityList;
-import com.hugooliveirasoares.timemanagement.service.Service;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.*;
-
-import io.restassured.http.ContentType;
-import org.apache.http.HttpStatus;
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.mockito.junit.MockitoRule;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -36,16 +20,13 @@ import static org.mockito.Mockito.*;
 class TimemanagementApplicationTests {
 
 	@Mock
-	private Controller mockedController = mock(Controller.class);
+	final private Controller mockedController = mock(Controller.class);
+
+	@Mock
+	final private ActivityDAO mockedDao = mock(ActivityDAO.class);
 
 	@InjectMocks
-	private Service service;
-
-	@InjectMocks
-	private Activity activity = new Activity();
-
-	@InjectMocks
-	private ActivityList activityList;
+	final private Activity activity = new Activity();
 
 	@BeforeEach
 	public void setup(){
@@ -83,5 +64,32 @@ class TimemanagementApplicationTests {
 		assertEquals(activity.getTimeSpent(), mockedController.postactivity(activity));
 	}
 
+	@Test
+	public void databaseSaveTrueTest(){
+
+		activity.setTask("Testing Database");
+		activity.setTimeSpent("09:00", "10:00");
+		activity.setInformation("Test save");
+
+		when(mockedDao.save(activity))
+				.thenReturn(true);
+
+	}
+
+	@Test
+	public void databaseReadTest(){
+
+		activity.setTask("Test Database");
+		activity.setTimeSpent("09:57", "10:30");
+		activity.setInformation("Testing database");
+
+		List<Activity> listActivity = new ArrayList<>();
+		listActivity.add(activity);
+
+		mockedDao.save(activity);
+
+		when(mockedDao.read())
+				.thenReturn(listActivity);
+	}
 
 }
