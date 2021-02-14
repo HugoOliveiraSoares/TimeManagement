@@ -10,10 +10,15 @@ public class Service {
 
     ActivityList activityList = new ActivityList();
 
-    public void saveActivity(Activity activity){
+    public String saveActivity(Activity activity){
         ActivityDAO dao = new ActivityDAO();
-        dao.save(activity);
-//        activityList.getListActivity().add(activity);
+
+        if (dao.save(activity)) {
+            activity.setTimeSpent(activity.getStartTime(), activity.getEndTime());
+            return activity.getTimeSpent();
+        }else {
+            return "Error to save";
+        }
     }
 
     public List<Activity> getActivities(){
