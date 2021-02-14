@@ -37,7 +37,7 @@ public class ActivityDAO {
 
     }
 
-    public void save(Activity activity){
+    public boolean save(Activity activity){
 
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
@@ -52,13 +52,12 @@ public class ActivityDAO {
             stmt.setString(5, activity.getTimeSpent());
             stmt.setDate(6, new Date( dateFormat.parse(activity.getDate()).getTime() ));
 
-
             stmt.executeUpdate();
-            System.out.println("Salvo com sucesso!");
+            return true; // Success
 
         } catch (SQLException | ParseException throwables) {
             throwables.printStackTrace();
-            System.out.println("ERRO ao salvar!");
+            return false; // Error to save
         }finally {
             ConnectionFactory.closeConnection(con, stmt);
         }

@@ -21,7 +21,6 @@ public class Controller {
     @GetMapping("/getactivity")
     public List<Activity> getActivity(){
         return service.getActivities();
-//        return service.getActivityList();
     }
 
     @GetMapping("/getbytask")
@@ -33,9 +32,7 @@ public class Controller {
     @PostMapping("/postactivity")
     public String postactivity(@RequestBody Activity activity){
 
-        activity.setTimeSpent(activity.getStartTime(), activity.getEndTime());
-        service.saveActivity(activity);
-        return activity.getTimeSpent();
+        return service.saveActivity(activity);
     }
 
 }
